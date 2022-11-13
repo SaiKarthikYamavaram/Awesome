@@ -1,14 +1,14 @@
-import {Button, ButtonGroup, Datepicker, Icon, Input, Layout, Select, Text} from "@ui-kitten/components";
-import React from "react";
-import {ScrollView, StyleSheet} from "react-native";
-import Selector from "../components/Selector";
+import {Button, ButtonGroup, Datepicker, Icon, Input, Layout, Text} from '@ui-kitten/components';
+import React from 'react';
+import {ScrollView, StyleSheet} from 'react-native';
+import Selector from '../components/Selector';
 
 
 const Supplier = ["Supplier1", "Supplier2", "Supplier3", "Supplier4", "Supplier5"]
 const Transporter = ["Transporter1", "Transporter2", "Transporter3", "Transporter4"]
 
 
-const HomeScreen = () => {
+const NewInvoice = () => {
     const [invoiceReceiveDate, setInvoiceReceiveDate] = React.useState('');
     const [invoiceDate, setInvoiceDate] = React.useState('');
     const [lrDate, setLRDate] = React.useState('');
@@ -119,7 +119,7 @@ const HomeScreen = () => {
                 </ButtonGroup>
             </Layout>
 
-            <Button size="large" style={styles.button}>
+            <Button size="large" onPress={onSubmit} style={styles.button}>
                 {() => <Text style={[styles.labelStyle, styles.btnLabel]}>Submit</Text>}
             </Button>
 
@@ -162,7 +162,6 @@ const styles = StyleSheet.create({
         width: "100%",
         fontWeight: "bold",
         fontSize: 32,
-        fontFamily: "Roboto-Black"
     },
     counterContainer: {
         width: "100%",
@@ -185,4 +184,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default HomeScreen
+export default NewInvoice

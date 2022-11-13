@@ -3,7 +3,7 @@ import React from 'react';
 import {Image, StyleSheet, useWindowDimensions} from 'react-native';
 
 
-const LoginScreen = () => {
+const DashboardScreen = () => {
     const {height, width} = useWindowDimensions();
 
 
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
         width: '100%',
         fontWeight: 'bold',
         fontSize: 34,
+        fontFamily: 'Roboto-Black',
     },
     counterContainer: {
         width: '100%',
@@ -129,4 +130,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default LoginScreen;
+export default DashboardScreen;
