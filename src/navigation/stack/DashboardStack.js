@@ -1,10 +1,11 @@
 import React from 'react';
-import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
+import {TransitionPresets} from '@react-navigation/stack';
 import {NAVIGATION} from '../../constants/navigationConstants';
 import DashboardScreen from '../../screens/DashboardScreen';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 class DashBoardStack extends React.Component {
   render() {

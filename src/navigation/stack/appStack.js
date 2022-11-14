@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {NAVIGATION} from '../../constants/navigationConstants';
 import BottomTab from '../tab/BottomTab';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -8,6 +8,17 @@ import {Icon} from '@ui-kitten/components';
 const Drawer = createDrawerNavigator();
 
 const AppStack = () => {
+    const [branch, setBranch] = useState(null);
+    const [branchList, setBranchList] = useState([]);
+
+    useEffect(() => {
+        //    todo update branch related API's according to screen if needed
+    }, [branch]);
+
+    useEffect(() => {
+        //    todo replace with fetch branches from API
+        setBranchList(getBranches());
+    }, []);
 
     return (
         <Drawer.Navigator
@@ -22,6 +33,7 @@ const AppStack = () => {
                     fontFamily: 'Roboto-Medium',
                     fontSize: 15,
                 },
+                headerTitle: (props) => (<></>),
             }}>
             <Drawer.Screen name={NAVIGATION.BottomTab} options={{
                 drawerIcon: ({color}) => (
@@ -33,6 +45,20 @@ const AppStack = () => {
         </Drawer.Navigator>
     );
 };
+
+//todo delete this
+const getBranches = () => [
+    'branch1',
+    'branch2',
+    'branch3',
+    'branch4',
+    'branch5',
+    'branch6',
+    'branch7',
+    'branch8',
+    'branch9',
+    'branch10',
+];
 
 
 export default AppStack;

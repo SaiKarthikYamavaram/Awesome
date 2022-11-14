@@ -6,6 +6,7 @@ import {NAVIGATION} from '../../constants/navigationConstants';
 import ParcelStack from '../stack/ParcelStack';
 import ReportStack from '../stack/ReportStack';
 import {Icon, Text} from '@ui-kitten/components';
+import InvoiceStack from '../stack/InvoiceStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +25,7 @@ class BottomTab extends React.Component {
     render() {
         return (
             <Tab.Navigator
-                initialRouteName={NAVIGATION.DashboardTab}
+                initialRouteName={NAVIGATION.InvoiceTab}
                 backBehavior='firstRoute'
                 screenOptions={{
                     style: {
@@ -52,14 +53,12 @@ class BottomTab extends React.Component {
                 />
                 <Tab.Screen
                     name={NAVIGATION.InvoiceTab}
-                    component={ParcelStack}
+                    component={InvoiceStack}
                     options={() => ({
                         tabBarIcon: (parameters) => (
                             <TabIcon label='Invoice' name='book'  {...parameters} />
                         ),
                         tabBarHideOnKeyboard: true,
-
-
                     })}
                 />
                 <Tab.Screen

@@ -1,9 +1,10 @@
 import React from 'react';
-import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
+import {TransitionPresets} from '@react-navigation/stack';
 import {NAVIGATION} from '../../constants/navigationConstants';
 import NewInvoice from '../../screens/NewInvoice';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 class ReportStack extends React.Component {
 	render() {
 		return (

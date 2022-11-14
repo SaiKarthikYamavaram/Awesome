@@ -1,17 +1,16 @@
 import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import {Layout, Select, SelectItem} from '@ui-kitten/components';
-import {SelectProps} from "@ui-kitten/components/ui/select/select.component";
 
 export const Selector = (props) => {
 
     const [selectedIndex, setSelectedIndex] = React.useState();
 
     useEffect(() => {
-        if (selectedIndex != null && typeof selectedIndex.row ) {
-            props.onOptionChange(selectedIndex.row)
+        if (selectedIndex != null && typeof selectedIndex.row) {
+            props.onOptionChange(selectedIndex.row);
         }
-    }, [selectedIndex])
+    }, [selectedIndex]);
 
 
     return (
@@ -25,7 +24,7 @@ export const Selector = (props) => {
                 // @ts-ignore
                 onSelect={index => setSelectedIndex(index)}>
                 {props.options.map((item, index) => (
-                    <SelectItem key={index} title={item}/>
+                    <SelectItem style={styles.itemStyle} key={index} title={item}/>
                 ))}
             </Select>
         </Layout>
@@ -34,8 +33,9 @@ export const Selector = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: "100%"
-    },
+        width: '100%',
+    }, itemStyle: {},
+
 });
 
-export default Selector
+export default Selector;
