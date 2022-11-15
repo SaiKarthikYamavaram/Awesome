@@ -4,8 +4,8 @@ import {ScrollView, StyleSheet} from 'react-native';
 import Selector from '../components/Selector';
 
 
-const Supplier = ['Supplier1', 'Supplier2', 'Supplier3', 'Supplier4', 'Supplier-5', 'Supplier5'];
-const Transporter = ['Transporter1', 'Transporter2', 'Transporter3', 'Transporter4', 'TsCode-5'];
+export const Supplier = ['Supplier1', 'Supplier2', 'Supplier3', 'Supplier4', 'Supplier-5', 'Supplier5'];
+export const Transporter = ['Transporter1', 'Transporter2', 'Transporter3', 'Transporter4', 'TsCode-5'];
 
 
 const NewInvoice = ({navigation, route}) => {
