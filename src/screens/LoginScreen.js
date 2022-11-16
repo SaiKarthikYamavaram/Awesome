@@ -1,9 +1,10 @@
 import {Button, CheckBox, Icon, Input, Layout, Text} from '@ui-kitten/components';
 import React from 'react';
 import {Image, StyleSheet, useWindowDimensions} from 'react-native';
+import {NAVIGATION} from '../constants/navigationConstants';
 
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
     const {height, width} = useWindowDimensions();
 
 
@@ -14,6 +15,7 @@ const LoginScreen = () => {
     const [rememberMe, setRememberMe] = React.useState(false);
 
     const onSubmit = () => {
+        navigation.replace(NAVIGATION.App);
     };
 
 

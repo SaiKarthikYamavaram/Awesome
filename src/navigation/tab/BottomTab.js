@@ -25,7 +25,7 @@ class BottomTab extends React.Component {
     render() {
         return (
             <Tab.Navigator
-                initialRouteName={NAVIGATION.InvoiceTab}
+                initialRouteName={NAVIGATION.DashboardTab}
                 backBehavior='firstRoute'
                 screenOptions={{
                     style: {

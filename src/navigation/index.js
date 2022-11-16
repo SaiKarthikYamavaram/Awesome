@@ -11,7 +11,7 @@ const StackContainer = () => {
     return (
         <NavigationContainer>
             <RootStack.Navigator
-                initialRouteName={NAVIGATION.App}
+                initialRouteName={NAVIGATION.LoginScreen}
                 screenOptions={{
                     headerShown: false,
                     ...TransitionPresets.SlideFromRightIOS,
