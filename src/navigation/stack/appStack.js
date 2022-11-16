@@ -1,24 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {NAVIGATION} from '../../constants/navigationConstants';
 import BottomTab from '../tab/BottomTab';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import CustomDrawer from '../drawer/CustomDrawer';
-import {Icon} from '@ui-kitten/components';
+import {Icon, Layout, Text} from '@ui-kitten/components';
+import {useDispatch, useSelector} from 'react-redux';
+import {Pressable} from 'react-native';
+import {showBottomSheet} from '../../redux/slice/counterSlice';
 
 const Drawer = createDrawerNavigator();
 
+const BranchHeader = () => {
+    const currentBranch = useSelector((state) => state.counter.currentBranch);
+    const dispatch = useDispatch();
+    return (<Pressable onPress={() => dispatch(showBottomSheet())}>
+        <Layout style={{flexDirection: 'row', justifyContent: 'center'}}>
+            <Text category="h5">
+                {currentBranch != null ? currentBranch : 'Select branch'}
+            </Text>
+            <Icon name="arrow-ios-downward-outline" fill='black' style={{width: 24, height: 24}}/>
+        </Layout>
+    </Pressable>);
+};
+
+
 const AppStack = () => {
-    const [branch, setBranch] = useState(null);
-    const [branchList, setBranchList] = useState([]);
-
-    useEffect(() => {
-        //    todo update branch related API's according to screen if needed
-    }, [branch]);
-
-    useEffect(() => {
-        //    todo replace with fetch branches from API
-        setBranchList(getBranches());
-    }, []);
 
     return (
         <Drawer.Navigator
@@ -33,7 +39,7 @@ const AppStack = () => {
                     fontFamily: 'Roboto-Medium',
                     fontSize: 15,
                 },
-                headerTitle: (props) => (<></>),
+                headerTitle: () => <BranchHeader/>,
             }}>
             <Drawer.Screen name={NAVIGATION.BottomTab} options={{
                 drawerIcon: ({color}) => (
@@ -43,22 +49,9 @@ const AppStack = () => {
                 drawerLabel: 'Dashboard',
             }} component={BottomTab}/>
         </Drawer.Navigator>
+
     );
 };
-
-//todo delete this
-const getBranches = () => [
-    'branch1',
-    'branch2',
-    'branch3',
-    'branch4',
-    'branch5',
-    'branch6',
-    'branch7',
-    'branch8',
-    'branch9',
-    'branch10',
-];
 
 
 export default AppStack;

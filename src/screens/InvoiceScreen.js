@@ -26,14 +26,6 @@ const getData = () => {
     return data;
 };
 
-
-const groupBy = function (xs, key) {
-    return xs.reduce(function (rv, x) {
-        (rv[x[key]] = rv[x[key]] || []).push(x);
-        return rv;
-    }, {});
-};
-
 const completedTasks = getData();
 
 
@@ -103,11 +95,6 @@ const InvoiceScreen = ({navigation}) => {
     const [selectedTransportersIndex, setSelectedTransportersIndex] = useState([]);
 
 
-    // callbacks
-    const handleSheetChanges = useCallback((index: number) => {
-        console.log('handleSheetChanges', index);
-    }, []);
-
     function navigateToItem(item) {
         navigation.push(NAVIGATION.NewInvoice, {
             invoice: item,
@@ -168,8 +155,7 @@ const InvoiceScreen = ({navigation}) => {
                 enablePanDownToClose={true}
                 animateOnMount={false}
                 enableOverDrag={false}
-                backdropComponent={renderBackdrop}
-                onChange={handleSheetChanges}>
+                backdropComponent={renderBackdrop}>
                 <View style={styles.contentContainer}>
                     <Text style={{paddingHorizontal: 4, paddingVertical: 6, marginBottom: 4}} category="h4">Apply
                         Filter</Text>

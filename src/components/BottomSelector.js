@@ -1,66 +1,87 @@
-import React, {useCallback, useRef, useMemo} from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
-import BottomSheet, {BottomSheetFlatList} from '@gorhom/bottom-sheet';
+import React, {createRef, useCallback, useEffect} from 'react';
+import {Pressable, StyleSheet, View} from 'react-native';
+import BottomSheet, {BottomSheetBackdrop, BottomSheetFlatList} from '@gorhom/bottom-sheet';
+import {useDispatch, useSelector} from 'react-redux';
+import {hideBottomSheet, setCurrentBranch} from '../redux/slice/counterSlice';
+import {Text} from '@ui-kitten/components';
 
+const BottomSelector = () => {
+    const sheetRef = createRef(null);
 
-// render
-const SheetItem = useCallback(
-    ({item}) => (
-        <View style={styles.itemContainer}>
-            <Text>{item}</Text>
-        </View>
-    ),
-    [],
-);
+    const currentBranch = useSelector((state) => state.counter.currentBranch);
+    const branches = useSelector((state) => state.counter.branchData);
+    const visibility = useSelector((state) => state.counter.modelVisible);
+    const dispatch = useDispatch();
 
-
-const BottomSelector = ({data, snapPoints = ['50%'], onUpdate, onClose, renderItem = SheetItem}) => {
     // hooks
-    const sheetRef = useRef<BottomSheet>(null);
+    const snapPoints = ['50%'];
 
-    // callbacks
-    const handleSheetChange = useCallback((index) => {
-        console.log('handleSheetChange', index);
-        onUpdate();
-    }, []);
-    const handleSnapPress = useCallback((index) => {
-        sheetRef.current?.snapToIndex(index);
-    }, []);
-    const handleClosePress = useCallback(() => {
-        sheetRef.current?.close();
-        onClose();
-    }, []);
+    function handleItemPress(item) {
+        dispatch(setCurrentBranch(item));
+        dispatch(hideBottomSheet());
+    }
 
+    const SheetItem = ({item, isSelected}) => (
+        <Pressable onPress={() => {
+            handleItemPress(item);
+        }}>
+            <View style={[styles.itemContainer, {backgroundColor: isSelected ? '#3366ff' : 'white'}]}>
+                <Text category="h6" style={{fontWeight: 'normal', color: isSelected ? 'white' : 'black'}}>{item}</Text>
+            </View>
+        </Pressable>
+    );
+
+
+    const renderBackdrop = useCallback(
+        props => (
+            <BottomSheetBackdrop
+                {...props}
+                disappearsOnIndex={-1}
+                appearsOnIndex={0}
+            />
+        ),
+        [],
+    );
+
+    useEffect(() => {
+        if (visibility) {
+            sheetRef.current.expand();
+        } else {
+            sheetRef.current.close();
+        }
+
+    }, [visibility]);
 
     return (
-        <View style={styles.container}>
-            <BottomSheet
-                ref={sheetRef}
-                snapPoints={snapPoints}
-            >
-                <BottomSheetFlatList
-                    data={data}
-                    keyExtractor={(i) => i}
-                    renderItem={renderItem}
-                    contentContainerStyle={styles.contentContainer}
-                />
-            </BottomSheet>
-        </View>
+        <BottomSheet
+            ref={sheetRef}
+            index={-1}
+            keyboardBehavior="fillParent"
+            enablePanDownToClose={true}
+            animateOnMount={false}
+            backdropComponent={renderBackdrop}
+            enableOverDrag={false}
+            snapPoints={snapPoints}>
+            <BottomSheetFlatList
+                data={branches}
+                keyExtractor={(i) => i}
+                renderItem={({item}) => <SheetItem item={item} isSelected={item === currentBranch}/>}
+            />
+        </BottomSheet>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 200,
-    },
-    contentContainer: {
-        backgroundColor: 'white',
-    },
     itemContainer: {
-        padding: 6,
-        margin: 6,
-        backgroundColor: '#eee',
+        shadowColor: 'black',
+        shadowOffset: {width: 0, height: 2},
+        shadowRadius: 6,
+        shadowOpacity: 0.26,
+        elevation: 8,
+        backgroundColor: 'white',
+        padding: 14,
+        marginTop: 1,
+        borderRadius: 1,
     },
 });
 
